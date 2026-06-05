@@ -80,7 +80,7 @@ public class NormalizadorNome {
         for (String token : tokenizarSemParticulas(nome)) {
             if (token.equals(sobrenome)) continue;
 
-            if (token.matches("[a-z]{2,3}")) {
+            if (token.matches("[a-z]{2}")) {
                 for (char c : token.toCharArray()) {
                     iniciais.add(String.valueOf(c));
                 }
