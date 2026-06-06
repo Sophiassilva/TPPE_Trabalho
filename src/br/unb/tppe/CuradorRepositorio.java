@@ -72,4 +72,30 @@ public class CuradorRepositorio {
         autores.addAll(semDuplicatas);
         return removidos;
     }
+
+    // Unifica os IDs de autores duplicados mapeando-os para o menor ID do grupo
+    public void unificarIdsAutoresDuplicados() {
+        List<List<Autor>> grupos = encontrarDuplicatas();
+
+        for (List<Autor> grupo : grupos) {
+            if (grupo.size() > 1) {
+                long menorId = grupo.get(0).getId();
+                for (Autor autor : grupo) {
+                    if (autor.getId() < menorId) {
+                        menorId = autor.getId();
+                    }
+                }
+
+                for (Autor autorOriginal : grupo) {
+                    if (autorOriginal.getId() != menorId) {
+                        int index = autores.indexOf(autorOriginal);
+                        if (index != -1) {
+                            Autor autorUnificado = new Autor(menorId, autorOriginal.getNome());
+                            autores.set(index, autorUnificado);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
