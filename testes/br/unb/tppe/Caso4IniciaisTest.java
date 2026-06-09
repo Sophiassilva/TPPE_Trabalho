@@ -29,6 +29,11 @@ class Caso4IniciaisTest {
                 "Sérgio Henrique Guaraldi", 
                 "SH Guaraldi"
             ));
+
+            assertTrue(detector.nomesEquivalentes(
+                "Ana de Mattos Seabra", 
+                "AM Seabra"
+            ));
         }
 
         @Test
@@ -68,24 +73,44 @@ class Caso4IniciaisTest {
     class IntegracaoRepositorio {
 
         @Test
-        void duplicatasDoCaso4FormamGruposCorretos() {
+        void grupoVanildaFormaUmUnicoGrupo() {
             CuradorRepositorio repo = new CuradorRepositorio();
             
-            // Grupo 1
             repo.adicionarAutor(new Autor(763027, "Vanilda Cristina Junior")); 
-            repo.adicionarAutor(new Autor(763028, "VC Junior")); 
+            repo.adicionarAutor(new Autor(763027, "VC Junior")); 
+            repo.adicionarAutor(new Autor(335284, "Vanilda Cristina Júnior")); 
+
+            var grupos = repo.encontrarDuplicatas();
             
-            // Grupo 2
+            assertEquals(1, grupos.size(), "Deve agrupar todas as variações de Vanilda");
+            assertEquals(3, grupos.get(0).size());
+        }
+
+        @Test
+        void grupoSergioFormaUmUnicoGrupo() {
+            CuradorRepositorio repo = new CuradorRepositorio();
+            
+            repo.adicionarAutor(new Autor(554799, "Sergio Henrique Guaraldi"));
             repo.adicionarAutor(new Autor(243350, "Sérgio Henrique Guaraldi"));
             repo.adicionarAutor(new Autor(954057, "SH Guaraldi"));
 
             var grupos = repo.encontrarDuplicatas();
             
-            assertEquals(2, grupos.size(), "Devem ser encontrados 2 grupos distintos de duplicatas");
+            assertEquals(1, grupos.size(), "Deve agrupar todas as variações de Sérgio");
+            assertEquals(3, grupos.get(0).size());
+        }
+
+        @Test
+        void grupoAnaFormaUmUnicoGrupoCaso4() {
+            CuradorRepositorio repo = new CuradorRepositorio();
             
-            // Verifica se cada grupo encontrou o par corretamente
+            repo.adicionarAutor(new Autor(28372, "Ana de Mattos Seabra"));
+            repo.adicionarAutor(new Autor(582585, "AM Seabra"));
+
+            var grupos = repo.encontrarDuplicatas();
+            
+            assertEquals(1, grupos.size(), "Deve agrupar as variações de Ana");
             assertEquals(2, grupos.get(0).size());
-            assertEquals(2, grupos.get(1).size());
         }
     }
 }
