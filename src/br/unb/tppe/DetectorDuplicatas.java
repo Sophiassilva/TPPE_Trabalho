@@ -37,13 +37,19 @@ public class DetectorDuplicatas {
     }
 
     // Uma lista pode ser prefixo da outra (nome abreviado vs nome completo)
+    // Uma lista pode ser prefixo da outra (nome abreviado vs nome completo)
     private boolean iniciaisCompativeis(List<String> iniciais1, List<String> iniciais2) {
         if (iniciais1.isEmpty() || iniciais2.isEmpty()) return true;
 
-        int tamanhoMinimo = Math.min(iniciais1.size(), iniciais2.size());
-        for (int i = 0; i < tamanhoMinimo; i++) {
+        // Se a quantidade de nomes/iniciais for diferente, não é a mesma pessoa
+        if (iniciais1.size() != iniciais2.size()) {
+            return false;
+        }
+
+        for (int i = 0; i < iniciais1.size(); i++) {
             if (!iniciais1.get(i).equals(iniciais2.get(i))) return false;
         }
+        
         return true;
     }
 }
