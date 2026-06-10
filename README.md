@@ -23,7 +23,7 @@ sudo apt install openjdk-21-jdk -y
 ### Instale o Maven pelo terminal
 
 ```
-sudo apt install maven -y ´´
+sudo apt install maven -y 
 ```
 
 ### Rode os testes 
