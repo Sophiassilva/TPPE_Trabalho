@@ -32,7 +32,8 @@ A classe `Main` executa um exemplo completo com registros dos cinco casos de ded
 
 ## Demonstração dos testes
 
-
+<img width="957" height="1011" alt="image" src="https://github.com/user-attachments/assets/2cebb856-39c0-4ca5-9b09-3b52f3b7429c" />
+<img width="1489" height="686" alt="image" src="https://github.com/user-attachments/assets/46975bbd-eb3a-41cb-99c7-63c64082f857" />
 
 ## Linguagem e framework utilizados
 
