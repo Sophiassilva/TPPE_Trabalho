@@ -36,16 +36,7 @@ public class CuradorRepositorio {
         for (int i = 0; i < autores.size(); i++) {
             if (processado[i]) continue;
 
-            List<Autor> grupo = new ArrayList<>();
-            grupo.add(autores.get(i));
-            processado[i] = true;
-
-            for (int j = i + 1; j < autores.size(); j++) {
-                if (!processado[j] && detector.saoMesmaPessoa(autores.get(i), autores.get(j))) {
-                    grupo.add(autores.get(j));
-                    processado[j] = true;
-                }
-            }
+            List<Autor> grupo = formarGrupo(i, processado);
 
             if (grupo.size() > 1) {
                 grupos.add(grupo);
@@ -53,6 +44,22 @@ public class CuradorRepositorio {
         }
 
         return grupos;
+    }
+
+    // Monta o grupo de autores equivalentes ao autor na posição i
+    private List<Autor> formarGrupo(int i, boolean[] processado) {
+        List<Autor> grupo = new ArrayList<>();
+        grupo.add(autores.get(i));
+        processado[i] = true;
+
+        for (int j = i + 1; j < autores.size(); j++) {
+            if (!processado[j] && detector.saoMesmaPessoa(autores.get(i), autores.get(j))) {
+                grupo.add(autores.get(j));
+                processado[j] = true;
+            }
+        }
+
+        return grupo;
     }
 
     // Remove entradas com ID e nome exatamente iguais, retorna quantas foram removidas
