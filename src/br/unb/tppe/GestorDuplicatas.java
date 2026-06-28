@@ -12,29 +12,8 @@ public class GestorDuplicatas {
     }
 
     public List<List<Autor>> encontrarDuplicatas(List<Autor> autores) {
-        List<List<Autor>> grupos = new ArrayList<>();
-        boolean[] processado = new boolean[autores.size()];
-        for (int i = 0; i < autores.size(); i++) {
-            if (processado[i]) continue;
-            List<Autor> grupo = formarGrupo(i, processado, autores);
-            if (grupo.size() > 1) {
-                grupos.add(grupo);
-            }
-        }
-        return grupos;
-    }
-
-    private List<Autor> formarGrupo(int i, boolean[] processado, List<Autor> autores) {
-        List<Autor> grupo = new ArrayList<>();
-        grupo.add(autores.get(i));
-        processado[i] = true;
-        for (int j = i + 1; j < autores.size(); j++) {
-            if (!processado[j] && detector.saoMesmaPessoa(autores.get(i), autores.get(j))) {
-                grupo.add(autores.get(j));
-                processado[j] = true;
-            }
-        }
-        return grupo;
+        AgrupadorDeDuplicatas agrupador = new AgrupadorDeDuplicatas(autores, this.detector);
+        return agrupador.executar();
     }
 
     public int removerDuplicatasExatas(List<Autor> autores) {
